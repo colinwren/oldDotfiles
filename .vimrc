@@ -1,96 +1,249 @@
-" Make Vim more useful
+" Make vim more useful
 set nocompatible
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-" Enhance command-line completion
-set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
-" Allow backspace in insert mode
-set backspace=indent,eol,start
-" Optimize for fast terminal connections
-set ttyfast
-" Add the g flag to search/replace by default
-set gdefault
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
+
+" Enabled later, after Pathogen
+filetype off
+
 " Change mapleader
 let mapleader=","
-" Don’t add empty newlines at the end of files
-set binary
-set noeol
-" Centralize backups, swapfiles and undo history
+
+" Local dirs
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
-if exists("&undodir")
-	set undodir=~/.vim/undo
-endif
+set undodir=~/.vim/undo
 
-" Respect modeline in files
-set modeline
-set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-set secure
-" Enable line numbers
-set number
-" Enable syntax highlighting
-syntax on
-" Highlight current line
-set cursorline
-" Make tabs as wide as two spaces
-set tabstop=2
-" Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+" Set some junk
+set autoindent " Copy indent from last line when starting new line.
+set backspace=indent,eol,start
+set cursorline " Highlight current line
+set diffopt=filler " Add vertical spaces to keep right and left aligned
+set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+set encoding=utf-8 nobomb " BOM often causes trouble
+set esckeys " Allow cursor keys in insert mode.
+set expandtab " Expand tabs to spaces
+"set foldcolumn=4 " Column to show folds
+"set foldenable
+"set foldlevel=2
+" set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
+"set foldmethod=syntax " Markers are used to specify folds.
+"set foldminlines=0 " Allow folding single lines
+"set foldnestmax=3 " Set max fold nesting level
+set nofoldenable    " disable folding"
+set formatoptions=
+set formatoptions+=c " Format comments
+set formatoptions+=r " Continue comments by default
+set formatoptions+=q " Format comments with gq
+set formatoptions+=n " Recognize numbered lists
+set formatoptions+=2 " Use indent from 2nd line of a paragraph
+set formatoptions+=l " Don't break lines that are already long
+set formatoptions+=1 " Break before 1-letter words
+set gdefault " By default add g flag to search/replace. Add g to toggle.
+set hidden " When a buffer is brought to foreground, remember undo history and marks.
+set history=1000 " Increase history from 20 default to 1000
+set hlsearch " Highlight searches
+set ignorecase " Ignore case of searches.
+set incsearch " Highlight dynamically as pattern is typed.
+set laststatus=2 " Always show status line
+set lispwords+=defroutes " Compojure
+set lispwords+=defpartial,defpage " Noir core
+set lispwords+=defaction,deffilter,defview,defsection " Ciste core
+set lispwords+=describe,it " Speclj TDD/BDD
+set magic " Enable extended regexes.
+set mouse=a " Enable moouse in all in all modes.
+set noerrorbells " Disable error bells.
+set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command.
+set nostartofline " Don't reset cursor to start of line when moving around.
+set nowrap " Do not wrap lines.
+set nu " Enable line numbers.
+set ofu=syntaxcomplete#Complete " Set omni-completion method.
+set report=0 " Show all changes.
+set ruler " Show the cursor position
+set scrolloff=5 " Start scrolling three lines before horizontal border of window.
+set shiftwidth=2 " The # of spaces for indenting.
+set shortmess=atI " Don't show the intro message when starting vim.
+set showmode " Show the current mode.
+set showtabline=2 " Always show tab bar.
+set sidescrolloff=3 " Start scrolling three columns before vertical border of window.
+set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters.
+set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+set softtabstop=2 " Tab key results in 2 spaces
+set splitbelow " New window goes below
+set splitright " New windows goes right
+set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
+set title " Show the filename in the window titlebar.
+set ttyfast " Send more characters at a given time.
+set ttymouse=xterm " Set mouse type to xterm.
+set undofile " Persistent Undo.
+set visualbell " Use visual bell instead of audible bell (annnnnoying)
+set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
+set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
+set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/comp/*
+set wildmenu " Hitting TAB in command mode will show possible completions above command line.
+set wildmode=list:longest " Complete only until point of ambiguity.
+set winminheight=0 "Allow splits to be reduced to a single line.
+set wrapscan " Searches wrap around end of file
+
+" stuff for textwrapping"
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=81
+
+" Toggle show tabs and trailing spaces (,c)
 set list
-" Highlight searches
-set hlsearch
-" Ignore case of searches
-set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
-" Always show status line
-set laststatus=2
-" Enable mouse in all modes
-set mouse=a
-" Disable error bells
-set noerrorbells
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-" Show the cursor position
-set ruler
-" Don’t show the intro message when starting Vim
-set shortmess=atI
-" Show the current mode
-set showmode
-" Show the filename in the window titlebar
-set title
-" Show the (partial) command as it’s being typed
-set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
+set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+set fcs=fold:-
+
+" Stuff for indenting"
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set shiftround
+
+" Remap :W to :w
+command W w
+command WQ wq
+command Wq wq
+command Q q
+
+" Insert newline
+map <leader><Enter> o<ESC>
+
+" Add semi-colon to end of line"
+map <leader>; $a;<ESC>
+map <leader>, $a,<cr>
+
+" wrap current word in quotes"
+map <leader>' ysiw'
+map <leader>" ysiw"
+map <leader>{ ysiw{
+map <leader>[ ysiw[
+map <leader>( ysiw(
+
+" Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l)
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+
+"disable ex mode"
+map Q <Nop>
+
+noremap <up> <C-w>k "next window
+noremap <down> <C-j>
+noremap <left> <C-h>
+noremap <right> <C-l>
+nnoremap j gj
+nnoremap k gk
+
+nnoremap <Space>h :tabp<Enter>
+nnoremap <Space>l :tabn<Enter>
+
+" Cycle through buffers in the current split
+nnoremap <Space>j :bn<CR>
+nnoremap <Space>k :bp<CR>
+
+" move through windows
+nnoremap <Space>a <C-w>h
+nnoremap <Space>s <C-w>j
+nnoremap <Space>d <C-w>k
+nnoremap <Space>f <C-w>l
+
+inoremap ,, <ESC>A,<CR>
+inoremap <Tab> <C-P>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+vnoremap <Tab> 1>
+vnoremap <S-Tab> 1<
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+" stops waiting for next keypress to complete leader command"
+set timeoutlen=600
+
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+" faster split resizing (+,-)
+if bufwinnr(1)
+    map + <C-W>+
+    map - <C-W>-
 endif
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
+" Set syntax highlighting options.
+set t_Co=256
+set background=dark
+colorscheme vividchalk
+set modifiable
+set noswapfile
 
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+nnoremap H ^
+nnoremap L $
 
-" Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype on
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  autocmd bufwritepost .vimrc source $MYVIMRC
 endif
+au FocusLost * :wa
+let NERDTreeShowBookmarks=1
+nnoremap <leader>nt :NERDTree<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE (thanks Gary Bernhardt)
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+au BufRead,BufNewFile *.json set ft=json syntax=javascript
+map <leader>rp :RainbowParenthesesToggleAll<Cr>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeMapJumpFirstChild = 'gK'
+let delimitMate_expand_cr = 1
+
+"Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+:nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+
+sunmap w
+sunmap b
+sunmap e
+:nmap <c-s> :w<CR>
+:imap <c-s> <Esc>:w<CR>a
+:imap <c-s> <Esc><c-s>
+let g:neocomplcache_enable_at_startup = 1
+inoremap <expr><c-c>  neocomplcache#smart_close_popup()
+inoremap <Nul> <C-n>
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underscore completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Sets minimum char length of syntax keyword.
+let g:neocomplcache_min_syntax_length = 3
+let g:user_zen_expandabbr_key='<leader><Tab>'
+:nmap <Space>; :CtrlP<CR>
+

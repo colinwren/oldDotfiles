@@ -7,19 +7,28 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
+alias d="cd ~/Projects/dotfiles"
+alias ds="source ~/Projects/dotfiles/bootstrap.sh -f"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
 alias g="git"
+alias gs="git status"
+alias gp="git pull"
 alias h="history"
 alias j="jobs"
 alias v="vim"
-alias m="mate ."
-alias s="subl ."
+alias ve="vim ~/Projects/dotfiles/.vimrc"
+alias vb="cd ~/Projects/dotfiles/.vim/bundle"
 alias o="open"
 alias oo="open ."
 
+# Polygon Dev
+alias cm1="sudo rm -rv /Applications/XAMPP/htdocs/polygon"
+alias cm2="sudo git clone https://github.com/ChrisWren/polygon.git /Applications/XAMPP/htdocs/polygon"
+alias cm3="sudo chmod -R ugo+rwx /Applications/XAMPP/htdocs/polygon"
+alias cmo="open ~/Projects/polygon && open /Applications/XAMPP/htdocs/polygon"
+alias pl="cd /Applications/XAMPP/htdocs/polygon"
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"

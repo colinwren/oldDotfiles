@@ -15,6 +15,7 @@ shopt -s nocaseglob
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
 
+. ~/code/z/z.sh
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
