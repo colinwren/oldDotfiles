@@ -12,6 +12,10 @@ alias ds="source ~/Projects/dotfiles/bootstrap.sh -f"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
+md () {
+  mkdir "$1"
+    cd "$1"
+}
 alias g="git"
 alias gs="git status"
 alias gp="git pull"

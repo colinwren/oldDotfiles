@@ -163,3 +163,15 @@ function unquarantine() {
 		xattr -r -d "$attribute" "$@"
 	done
 }
+
+# make new hint test
+function mhtest() {
+	bin/SASSFriend hint test/dirty.css --$1 | tee test/hint/$1.css
+}
+
+# make new groom test
+function mhtest() {
+	bin/SASSFriend groom test/dirty.css --$1 | tee test/groom/$1.css
+  rm test/dirty.css
+  cp test/dirtyCopy.css test/dirty.css
+}

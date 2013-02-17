@@ -1,4 +1,5 @@
 " Make vim more useful
+
 set nocompatible
 
 " Enabled later, after Pathogen
@@ -26,7 +27,7 @@ set expandtab " Expand tabs to spaces
 "set foldlevel=2
 " set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
 "set foldmethod=syntax " Markers are used to specify folds.
-"set foldminlines=0 " Allow folding single lines
+"set foldminlines=0 " Allow folding single line
 "set foldnestmax=3 " Set max fold nesting level
 set nofoldenable    " disable folding"
 set formatoptions=
@@ -144,11 +145,11 @@ nnoremap <Space>l :tabn<Enter>
 nnoremap <Space>j :bn<CR>
 nnoremap <Space>k :bp<CR>
 
-" move through windows
-nnoremap <Space>a <C-w>h
-nnoremap <Space>s <C-w>j
-nnoremap <Space>d <C-w>k
-nnoremap <Space>f <C-w>l
+" move through life
+nnoremap <Space>a 0
+nnoremap <Space>s :w<CR>
+nnoremap <Space>d :s/
+nnoremap <Space>f $
 
 inoremap ,, <ESC>A,<CR>
 inoremap <Tab> <C-P>
@@ -208,7 +209,7 @@ function! RenameFile()
     redraw!
   endif
 endfunction
-map <leader>n :call RenameFile()<cr>
+map <leader>rn :call RenameFile()<cr>
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
 map <leader>rp :RainbowParenthesesToggleAll<Cr>
 let NERDTreeMinimalUI = 1
@@ -229,12 +230,14 @@ map w <Plug>CamelCaseMotion_w
 map b <Plug>CamelCaseMotion_b
 map e <Plug>CamelCaseMotion_e
 
+map <leader>js :set ft=js set syntax js<Cr>
 sunmap w
 sunmap b
 sunmap e
-:nmap <c-s> :w<CR>
-:imap <c-s> <Esc>:w<CR>a
-:imap <c-s> <Esc><c-s>
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+map <Esc>s :w<CR>
+imap <Esc>s :w<CR>
 let g:neocomplcache_enable_at_startup = 1
 inoremap <expr><c-c>  neocomplcache#smart_close_popup()
 inoremap <Nul> <C-n>
