@@ -1,5 +1,4 @@
 " Make vim more useful
-
 set nocompatible
 
 " Enabled later, after Pathogen
@@ -22,13 +21,6 @@ set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode.
 set expandtab " Expand tabs to spaces
-"set foldcolumn=4 " Column to show folds
-"set foldenable
-"set foldlevel=2
-" set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
-"set foldmethod=syntax " Markers are used to specify folds.
-"set foldminlines=0 " Allow folding single line
-"set foldnestmax=3 " Set max fold nesting level
 set nofoldenable    " disable folding"
 set formatoptions=
 set formatoptions+=c " Format comments
@@ -67,7 +59,6 @@ set showtabline=2 " Always show tab bar.
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window.
 set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters.
 set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
-set softtabstop=2 " Tab key results in 2 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
@@ -109,7 +100,8 @@ command Wq wq
 command Q q
 
 " Insert newline
-map <leader><Enter> o<ESC>
+map <leader><Enter> O<ESC>
+map <space><Enter> o<ESC>
 
 " Add semi-colon to end of line"
 map <leader>; $a;<ESC>
@@ -151,19 +143,10 @@ nnoremap <Space>s :w<CR>
 nnoremap <Space>d :s/
 nnoremap <Space>f $
 
-inoremap ,, <ESC>A,<CR>
-inoremap <Tab> <C-P>
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-
-
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 vnoremap <Tab> 1>
 vnoremap <S-Tab> 1<
@@ -195,11 +178,10 @@ if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 au FocusLost * :wa
-let NERDTreeShowBookmarks=1
 nnoremap <leader>nt :NERDTree<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
@@ -212,6 +194,29 @@ endfunction
 map <leader>rn :call RenameFile()<cr>
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
 map <leader>rp :RainbowParenthesesToggleAll<Cr>
+
+"Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+
+map <leader>js :set ft=javascript syntax=javascript<Cr>
+sunmap w
+sunmap b
+sunmap e
+" save on esc c
+map <Esc>s :w<CR>
+imap <Esc>s :w<CR>
+
+" nerdTree options
+let NERDTreeShowBookmarks=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
@@ -219,34 +224,22 @@ let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 let delimitMate_expand_cr = 1
 
-"Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-:nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-map w <Plug>CamelCaseMotion_w
-map b <Plug>CamelCaseMotion_b
-map e <Plug>CamelCaseMotion_e
-
-map <leader>js :set ft=js set syntax js<Cr>
-sunmap w
-sunmap b
-sunmap e
-map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
-map <Esc>s :w<CR>
-imap <Esc>s :w<CR>
+" nocomple chache options
 let g:neocomplcache_enable_at_startup = 1
 inoremap <expr><c-c>  neocomplcache#smart_close_popup()
-inoremap <Nul> <C-n>
 " Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
 " Use underscore completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
 let g:neocomplcache_min_syntax_length = 3
-let g:user_zen_expandabbr_key='<leader><Tab>'
+
+" zen coding option
+let g:user_zen_expandabbr_key='<esc><Tab>'
+
+" ctrl p option
 :nmap <Space>; :CtrlP<CR>
 
+" gundo option
+nnoremap <leader>gu :GundoToggle<CR>
+inoremap <esc>a <C-n>
