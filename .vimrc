@@ -69,7 +69,8 @@ set undofile " Persistent Undo.
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/comp/*
+set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/comp/*,*/dist/*
+
 set wildmenu " Hitting TAB in command mode will show possible completions above command line.
 set wildmode=list:longest " Complete only until point of ambiguity.
 set winminheight=0 "Allow splits to be reduced to a single line.
@@ -80,6 +81,7 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=81
+
 
 " Toggle show tabs and trailing spaces (,c)
 set list
@@ -105,7 +107,7 @@ map <space><Enter> o<ESC>
 
 " Add semi-colon to end of line"
 map <leader>; $a;<ESC>
-map <leader>, $a,<cr>
+map <leader>, $a,<ESC>
 
 " wrap current word in quotes"
 map <leader>' ysiw'
@@ -113,6 +115,10 @@ map <leader>" ysiw"
 map <leader>{ ysiw{
 map <leader>[ ysiw[
 map <leader>( ysiw(
+
+ "change surrounding quote
+map <space>' cs"'
+map <space>" cs'"
 
 " Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l)
 map <C-j> <C-W>j
@@ -136,9 +142,18 @@ nnoremap <Space>l :tabn<Enter>
 " Cycle through buffers in the current split
 nnoremap <Space>j :bn<CR>
 nnoremap <Space>k :bp<CR>
+"delete buffer
+nnoremap <Space>b :bd<CR>
+"delete block
+nnoremap <Space>x da{dd
+"quit
+nnoremap <Space>q :q<CR>
+"css
+nnoremap <Space>v ci{!pbpaste
+
 
 " move through life
-nnoremap <Space>a 0
+nnoremap <Space>a ^
 nnoremap <Space>s :w<CR>
 nnoremap <Space>d :s/
 nnoremap <Space>f $
@@ -167,12 +182,12 @@ endif
 " Set syntax highlighting options.
 set t_Co=256
 set background=dark
-colorscheme vividchalk
+colorscheme molokai
 set modifiable
 set noswapfile
-
-nnoremap H ^
-nnoremap L $
+"set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
 
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
@@ -224,6 +239,8 @@ let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 let delimitMate_expand_cr = 1
 
+map <Space>c ,c<space>
+
 " nocomple chache options
 let g:neocomplcache_enable_at_startup = 1
 inoremap <expr><c-c>  neocomplcache#smart_close_popup()
@@ -243,3 +260,4 @@ let g:user_zen_expandabbr_key='<esc><Tab>'
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>
 inoremap <esc>a <C-n>
+highlight ColorColumn ctermbg=black

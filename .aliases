@@ -33,6 +33,7 @@ alias cm1="sudo rm -rv /Applications/XAMPP/htdocs/polygon"
 alias cm2="sudo git clone https://github.com/ChrisWren/polygon.git /Applications/XAMPP/htdocs/polygon"
 alias cm3="sudo chmod -R ugo+rwx /Applications/XAMPP/htdocs/polygon"
 alias cms="cm1 && cm2 && cm3"
+alias pol="cms && cd polygon && make && grunt start"
 alias cmo="open ~/Projects/polygon && open /Applications/XAMPP/htdocs/polygon"
 alias pl="cd /Applications/XAMPP/htdocs/polygon"
 # Detect which `ls` flavor is in use
