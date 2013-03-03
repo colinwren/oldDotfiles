@@ -37,10 +37,6 @@ set hlsearch " Highlight searches
 set ignorecase " Ignore case of searches.
 set incsearch " Highlight dynamically as pattern is typed.
 set laststatus=2 " Always show status line
-set lispwords+=defroutes " Compojure
-set lispwords+=defpartial,defpage " Noir core
-set lispwords+=defaction,deffilter,defview,defsection " Ciste core
-set lispwords+=describe,it " Speclj TDD/BDD
 set magic " Enable extended regexes.
 set mouse=a " Enable moouse in all in all modes.
 set noerrorbells " Disable error bells.
@@ -96,10 +92,10 @@ set expandtab
 set shiftround
 
 " Remap :W to :w
-command W w
-command WQ wq
-command Wq wq
-command Q q
+:ca W w
+:ca WQ wq
+:ca Wq wq
+:ca Q q
 
 " Insert newline
 map <leader><Enter> O<ESC>
@@ -149,12 +145,12 @@ nnoremap <Space>x da{dd
 "quit
 nnoremap <Space>q :q<CR>
 "css
-nnoremap <Space>v ci{!pbpaste
 
 
 " move through life
 nnoremap <Space>a ^
 nnoremap <Space>s :w<CR>
+nnoremap <Space>q :q<CR>
 nnoremap <Space>d :s/
 nnoremap <Space>f $
 
@@ -185,38 +181,6 @@ set background=dark
 colorscheme molokai
 set modifiable
 set noswapfile
-"set background=dark
-"let g:solarized_termcolors=256
-"colorscheme solarized
-
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-au FocusLost * :wa
-nnoremap <leader>nt :NERDTree<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE (thanks Gary Bernhardt)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-map <leader>rn :call RenameFile()<cr>
-au BufRead,BufNewFile *.json set ft=json syntax=javascript
-map <leader>rp :RainbowParenthesesToggleAll<Cr>
-
-"Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
 
 map w <Plug>CamelCaseMotion_w
 map b <Plug>CamelCaseMotion_b
@@ -226,6 +190,7 @@ map <leader>js :set ft=javascript syntax=javascript<Cr>
 sunmap w
 sunmap b
 sunmap e
+
 " save on esc c
 map <Esc>s :w<CR>
 imap <Esc>s :w<CR>
@@ -256,6 +221,7 @@ let g:user_zen_expandabbr_key='<esc><Tab>'
 
 " ctrl p option
 :nmap <Space>; :CtrlP<CR>
+autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>

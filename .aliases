@@ -28,6 +28,8 @@ alias vb="cd ~/Projects/dotfiles/.vim/bundle"
 alias o="open"
 alias oo="open ."
 
+#hub
+alias git=hub
 # Polygon Dev
 alias cm1="sudo rm -rv /Applications/XAMPP/htdocs/polygon"
 alias cm2="sudo git clone https://github.com/ChrisWren/polygon.git /Applications/XAMPP/htdocs/polygon"
