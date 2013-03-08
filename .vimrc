@@ -132,12 +132,23 @@ noremap <right> <C-l>
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <Space>h :tabp<Enter>
-nnoremap <Space>l :tabn<Enter>
+" make Y behave
+nnoremap Y y$
+
 
 " Cycle through buffers in the current split
 nnoremap <Space>j :bn<CR>
 nnoremap <Space>k :bp<CR>
+" move to end or beggining of line
+nnoremap <Space>h ^
+nnoremap <Space>l 0
+
+" ctrl p option
+nnoremap <Space>f :CtrlP<CR>
+nnoremap <Space>d :bd<CR>
+nnoremap <Space>s :w<CR>
+nnoremap <Space>a @a<CR>
+
 "delete buffer
 nnoremap <Space>b :bd<CR>
 "delete block
@@ -148,11 +159,7 @@ nnoremap <Space>q :q<CR>
 
 
 " move through life
-nnoremap <Space>a ^
-nnoremap <Space>s :w<CR>
 nnoremap <Space>q :q<CR>
-nnoremap <Space>d :s/
-nnoremap <Space>f $
 
 inoremap <up> <nop>
 inoremap <down> <nop>
@@ -204,7 +211,14 @@ let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 let delimitMate_expand_cr = 1
 
+" nerdcommenter options
 map <Space>c ,c<space>
+
+" indent guide options
+let indent_guides_auto_colors = 0
+hi IndentGuidesOdd ctermbg=236
+hi IndentGuidesEven ctermbg=235
+let g:indent_guides_enable_on_vim_startup = 1
 
 " nocomple chache options
 let g:neocomplcache_enable_at_startup = 1
@@ -215,15 +229,17 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
 let g:neocomplcache_min_syntax_length = 3
-
 " zen coding option
 let g:user_zen_expandabbr_key='<esc><Tab>'
 
-" ctrl p option
-:nmap <Space>; :CtrlP<CR>
+autocmd VimEnter * :IndentGuidesEnable
 autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>
 inoremap <esc>a <C-n>
 highlight ColorColumn ctermbg=black
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
