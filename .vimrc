@@ -184,7 +184,6 @@ if bufwinnr(1)
 endif
 " Set syntax highlighting options.
 set t_Co=256
-set background=dark
 colorscheme molokai
 set modifiable
 set noswapfile
@@ -239,7 +238,3 @@ autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 nnoremap <leader>gu :GundoToggle<CR>
 inoremap <esc>a <C-n>
 highlight ColorColumn ctermbg=black
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
