@@ -1,2 +1,6 @@
 --ignore-dir=node_modules
 --ignore-dir=dist
+--type-add
+html=.haml
+--type-add
+css=.sass,.scss

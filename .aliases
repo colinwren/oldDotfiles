@@ -16,17 +16,22 @@ md () {
   mkdir "$1"
     cd "$1"
 }
-alias g="git"
-alias gs="git status"
-alias gp="git pull"
-alias gf="git config remote.origin.push HEAD"
 alias h="history"
+alias f="exit"
 alias j="jobs"
 alias v="vim"
 alias ve="vim ~/Projects/dotfiles/.vimrc"
 alias vb="cd ~/Projects/dotfiles/.vim/bundle"
 alias o="open"
 alias oo="open ."
+
+#git stuff
+alias g="git"
+alias gp="git pull"
+alias gf="git config remote.origin.push HEAD"
+alias gc='git commit'
+alias gca='git commit -a'
+alias gs='git status -sb'
 
 #hub
 alias git=hub

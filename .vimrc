@@ -47,7 +47,7 @@ set nu " Enable line numbers.
 set ofu=syntaxcomplete#Complete " Set omni-completion method.
 set report=0 " Show all changes.
 set ruler " Show the cursor position
-set scrolloff=5 " Start scrolling three lines before horizontal border of window.
+set scrolloff=3 " Start scrolling three lines before horizontal border of window.
 set shiftwidth=2 " The # of spaces for indenting.
 set shortmess=atI " Don't show the intro message when starting vim.
 set showmode " Show the current mode.
@@ -81,7 +81,8 @@ set colorcolumn=81
 
 " Toggle show tabs and trailing spaces (,c)
 set list
-set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+set lcs=tab:›\ ,trail:·,nbsp:_
+"set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
 
 " Stuff for indenting"
@@ -92,10 +93,10 @@ set expandtab
 set shiftround
 
 " Remap :W to :w
-:ca W w
-:ca WQ wq
-:ca Wq wq
-:ca Q q
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
 
 " Insert newline
 map <leader><Enter> O<ESC>
@@ -112,7 +113,7 @@ map <leader>{ ysiw{
 map <leader>[ ysiw[
 map <leader>( ysiw(
 
- "change surrounding quote
+"change surrounding quote
 map <space>' cs"'
 map <space>" cs'"
 
@@ -122,10 +123,15 @@ map <C-k> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
+map <esc>j <C-W>j
+map <esc>k <C-W>k
+map <esc>h <C-W>h
+map <esc>l <C-W>l
+
 "disable ex mode"
 map Q <Nop>
 
-noremap <up> <C-w>k "next window
+noremap <up> <C-w> "next window
 noremap <down> <C-j>
 noremap <left> <C-h>
 noremap <right> <C-l>
@@ -136,29 +142,41 @@ nnoremap k gk
 nnoremap Y y$
 
 
+map <space><space><space>  20j
 " Cycle through buffers in the current split
 nnoremap <Space>j :bn<CR>
 nnoremap <Space>k :bp<CR>
 " move to end or beggining of line
-nnoremap <Space>h ^
-nnoremap <Space>l 0
+nnoremap <Space>l :CtrlP<CR>
 
-" ctrl p option
-nnoremap <Space>f :CtrlP<CR>
+nnoremap <Space>; ci'
+
+" quick shell
+nnoremap <Space>t :sh<cr>
+
+nnoremap <Space>a ^
+nnoremap <Space>s @a
 nnoremap <Space>d :bd<CR>
-nnoremap <Space>s :w<CR>
-nnoremap <Space>a @a<CR>
+nnoremap <Space>f $
 
-"delete buffer
-nnoremap <Space>b :bd<CR>
+nnoremap <Space>b :bd *<C-a><CR>:CtrlP<CR>
 "delete block
 nnoremap <Space>x da{dd
 "quit
 nnoremap <Space>q :q<CR>
-"css
 
+" rails mappings
+nnoremap <space>i :! bundle install<cr>
+nnoremap <space>r :! bundle exec rspec<cr>
 
-" move through life
+" keep visual block selected after indent
+vnoremap > >gv
+vnoremap < <gv
+
+" select all
+map <Leader>a ggVG
+
+" " move through life
 nnoremap <Space>q :q<CR>
 
 inoremap <up> <nop>
@@ -179,12 +197,13 @@ filetype plugin indent on
 
 " faster split resizing (+,-)
 if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
+  map + <C-W>+
+  map - <C-W>-
 endif
 " Set syntax highlighting options.
 set t_Co=256
-colorscheme molokai
+colorscheme vividchalk
+"colorscheme base16-default
 set modifiable
 set noswapfile
 
@@ -196,6 +215,7 @@ map <leader>js :set ft=javascript syntax=javascript<Cr>
 sunmap w
 sunmap b
 sunmap e
+
 
 " save on esc c
 map <Esc>s :w<CR>
@@ -212,6 +232,9 @@ let delimitMate_expand_cr = 1
 
 " nerdcommenter options
 map <Space>c ,c<space>
+
+" nerdcommenter options
+map <leader>nt :NERDTree<cr>
 
 " indent guide options
 let indent_guides_auto_colors = 0
@@ -236,5 +259,7 @@ autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>
-inoremap <esc>a <C-n>
-highlight ColorColumn ctermbg=black
+highlight ColorColumn ctermbg=235
+au BufEnter * inoremap <expr><s-TAB> pumvisible() ? "\<C-n>" : "<s-TAB>"
+:highlight NonText ctermfg=blue
+au BufNewFile,BufRead *.ejs set filetype=html

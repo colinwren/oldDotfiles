@@ -78,3 +78,11 @@
 
 [push]
 	default = simple
+
+[user]
+	name = Colin Wren
+	email = colinwrenca@gmail.com
+[credential]
+	helper = cache --timeout=99600
+[help]
+	autocorrect = 1
