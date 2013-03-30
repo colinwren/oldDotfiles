@@ -102,6 +102,13 @@ set shiftround
 map <leader><Enter> O<ESC>
 map <space><Enter> o<ESC>
 
+" autindent file
+map <leader>= ggVG==
+
+" autindent file
+map <leader>p :set paste<cr>
+map <leader>o :set nopaste<cr>
+
 " Add semi-colon to end of line"
 map <leader>; $a;<ESC>
 map <leader>, $a,<ESC>
@@ -113,6 +120,11 @@ map <leader>{ ysiw{
 map <leader>[ ysiw[
 map <leader>( ysiw(
 
+"focus mode
+map <leader>f :GitGutterToggle<cr>:set nocul<cr>:set numberwidth=7<cr>:highlight LineNr ctermfg=233 ctermbg=233<cr>
+"revert focus mode
+map <leader>d :GitGutterToggle<cr>:set cul<cr>:set numberwidth=1<cr>:highlight LineNr ctermfg=DarkGrey ctermbg=234<cr>
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=234
 "change surrounding quote
 map <space>' cs"'
 map <space>" cs'"
@@ -202,19 +214,30 @@ if bufwinnr(1)
 endif
 " Set syntax highlighting options.
 set t_Co=256
-colorscheme vividchalk
-"colorscheme base16-default
+
+colorscheme Tomorrow-Night-Eighties
+"colorscheme vividchalk
+hi CursorLine term=bold cterm=bold ctermbg=232
+highlight ColorColumn ctermbg=232
+hi IndentGuidesOdd ctermbg=232
+hi IndentGuidesEven ctermbg=234
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=234
+highlight SignColumn ctermbg=234
+highlight Normal ctermbg=233
 set modifiable
 set noswapfile
 
-map w <Plug>CamelCaseMotion_w
-map b <Plug>CamelCaseMotion_b
-map e <Plug>CamelCaseMotion_e
 
-map <leader>js :set ft=javascript syntax=javascript<Cr>
+"get new version of this
+" only use if js
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
 sunmap w
 sunmap b
 sunmap e
+
+map <leader>js :set ft=javascript syntax=javascript<Cr>
 
 
 " save on esc c
@@ -238,8 +261,6 @@ map <leader>nt :NERDTree<cr>
 
 " indent guide options
 let indent_guides_auto_colors = 0
-hi IndentGuidesOdd ctermbg=236
-hi IndentGuidesEven ctermbg=235
 let g:indent_guides_enable_on_vim_startup = 1
 
 " nocomple chache options
@@ -259,7 +280,6 @@ autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>
-highlight ColorColumn ctermbg=235
 au BufEnter * inoremap <expr><s-TAB> pumvisible() ? "\<C-n>" : "<s-TAB>"
-:highlight NonText ctermfg=blue
+highlight NonText ctermfg=blue
 au BufNewFile,BufRead *.ejs set filetype=html

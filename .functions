@@ -22,6 +22,16 @@ function mkd() {
 }
 
 # Create a new directory and enter it
+function gi() {
+	npm install --save-dev grunt-"$@"
+}
+
+# Create a new directory and enter it
+function gci() {
+	npm install --save-dev grunt-contrib-"$@"
+}
+
+# Create a new rails project
 function rc() {
   rails new "$@" -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb
 }

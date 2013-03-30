@@ -33,6 +33,8 @@ alias gc='git commit'
 alias gca='git commit -a'
 alias gs='git status -sb'
 
+#rails stuff
+alias rdb='rake db:migrate && rake db:test:prepare'
 #hub
 alias git=hub
 # Polygon Dev
