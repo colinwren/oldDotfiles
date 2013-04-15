@@ -1,4 +1,4 @@
-" Make vim more useful
+"  Make vim more useful
 set nocompatible
 
 " Enabled later, after Pathogen
@@ -20,7 +20,6 @@ set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode.
-set expandtab " Expand tabs to spaces
 set nofoldenable    " disable folding"
 set formatoptions=
 set formatoptions+=c " Format comments
@@ -44,6 +43,7 @@ set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join
 set nostartofline " Don't reset cursor to start of line when moving around.
 set nowrap " Do not wrap lines.
 set nu " Enable line numbers.
+set relativenumber
 set ofu=syntaxcomplete#Complete " Set omni-completion method.
 set report=0 " Show all changes.
 set ruler " Show the cursor position
@@ -124,7 +124,11 @@ map <leader>( ysiw(
 map <leader>f :GitGutterToggle<cr>:set nocul<cr>:set numberwidth=7<cr>:highlight LineNr ctermfg=233 ctermbg=233<cr>
 "revert focus mode
 map <leader>d :GitGutterToggle<cr>:set cul<cr>:set numberwidth=1<cr>:highlight LineNr ctermfg=DarkGrey ctermbg=234<cr>
-"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=234
+
+
+map <leader>t :set expandtab!<cr>:set tabstop=4<cr>:set shiftwidth=4<cr>
+map <leader>s :set expandtab<cr>:set tabstop=2<cr>:set shiftwidth=2<cr>
+
 "change surrounding quote
 map <space>' cs"'
 map <space>" cs'"
@@ -178,8 +182,8 @@ nnoremap <Space>x da{dd
 nnoremap <Space>q :q<CR>
 
 " rails mappings
-nnoremap <space>i :! bundle install<cr>
-nnoremap <space>r :! bundle exec rspec<cr>
+nnoremap <space>u :GitGutterNextHunk<cr>
+nnoremap <space>i :GitGutterPrevHunk<cr>
 
 " keep visual block selected after indent
 vnoremap > >gv
@@ -188,7 +192,6 @@ vnoremap < <gv
 " select all
 map <Leader>a ggVG
 
-" " move through life
 nnoremap <Space>q :q<CR>
 
 inoremap <up> <nop>
@@ -215,7 +218,8 @@ endif
 " Set syntax highlighting options.
 set t_Co=256
 
-colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties
+colorscheme jellybeans
 "colorscheme vividchalk
 hi CursorLine term=bold cterm=bold ctermbg=232
 highlight ColorColumn ctermbg=232
@@ -280,6 +284,18 @@ autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
 " gundo option
 nnoremap <leader>gu :GundoToggle<CR>
+nnoremap <leader>rp :RainbowParenthesesToggleAll<CR>
 au BufEnter * inoremap <expr><s-TAB> pumvisible() ? "\<C-n>" : "<s-TAB>"
 highlight NonText ctermfg=blue
 au BufNewFile,BufRead *.ejs set filetype=html
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+" multi cursor has comtom config so it will break everything when it is updated

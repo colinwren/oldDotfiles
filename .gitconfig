@@ -25,6 +25,9 @@
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
 	# Undo a `git push`
 	undopush = push -f origin HEAD^:master
+  # Explicit is better than implicit.  If we want to merge
+  # we should do so ourselves.
+  pull = pull --ff-only
 
 [apply]
 	# Detect whitespace errors when applying a patch

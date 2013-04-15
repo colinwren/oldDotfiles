@@ -1,1 +1,1 @@
-/*jshint node: true, browser: true,jquery: true, bitwise: true,  eqeqeq: true,  immed: true, newCap: true,  quotmark: "single", undef: true, unused: true, trailing: true, laxcomma: true, strict:false */ /*global PLY, define, casper, require */
+/*jshint node: true, browser: true,jquery: true, bitwise: true,  eqeqeq: true,  immed: true, newCap: true,  quotmark: "single", unused: true, trailing: true, laxcomma: true, strict:false */ /*global PLY, define, casper, require, sails, Backbone, before, describe, it, after */

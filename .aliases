@@ -20,23 +20,31 @@ alias h="history"
 alias f="exit"
 alias j="jobs"
 alias v="vim"
+alias j="vim -c NERDTree"
 alias ve="vim ~/Projects/dotfiles/.vimrc"
 alias vb="cd ~/Projects/dotfiles/.vim/bundle"
 alias o="open"
 alias oo="open ."
+alias no="growlnotify --appIcon Alfred Done! -m ''"
 
 #git stuff
 alias g="git"
 alias gp="git pull"
 alias gf="git config remote.origin.push HEAD"
 alias gc='git commit'
+alias gb='git branch'
+alias gco='git checkout'
 alias gca='git commit -a'
 alias gs='git status -sb'
+alias gy='git pull --rebase upstream master'
+
 
 #rails stuff
 alias rdb='rake db:migrate && rake db:test:prepare'
+
 #hub
 alias git=hub
+
 # Polygon Dev
 alias cm1="sudo rm -rv /Applications/XAMPP/htdocs/polygon"
 alias cm2="sudo git clone https://github.com/ChrisWren/polygon.git /Applications/XAMPP/htdocs/polygon"
