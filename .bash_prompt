@@ -51,5 +51,12 @@ function parse_git_branch() {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
+function parse_node_version() {
+	GREEN=`echo -e '\033[0;32m'`
+	NORMAL=`echo -e '\033[0m'`
+
+	node --version 2> /dev/null | sed -e 's/v/$GREEN&$NORMAL /'
+}
+
 export PS1="\[${BOLD}${MAGENTA}\]\[$BLUE\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\] λ \[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
