@@ -36,4 +36,4 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-#. /Users/colinwren/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+[[ -s /Users/colinwren/.nvm/nvm.sh ]] && . /Users/colinwren/.nvm/nvm.sh # This loads NVM

@@ -62,6 +62,7 @@ set title " Show the filename in the window titlebar.
 set ttyfast " Send more characters at a given time.
 set ttymouse=xterm " Set mouse type to xterm.
 set undofile " Persistent Undo.
+set lazyredraw " Prevent scroll lag
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
@@ -98,22 +99,26 @@ set shiftround
 :command W w
 :command Q q
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""  Leader Stuff
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Insert newline
 map <leader><Enter> O<ESC>
 map <space><Enter> o<ESC>
 
-" autindent file
+" autoindent file
 map <leader>= ggVG==
 
-" autindent file
+" Change paste setting
 map <leader>p :set paste<cr>
 map <leader>o :set nopaste<cr>
 
-" Add semi-colon to end of line"
+" Add semi-colon to end of line
 map <leader>; $a;<ESC>
 map <leader>, $a,<ESC>
 
-" wrap current word in quotes"
+" wrap current word
 map <leader>' ysiw'
 map <leader>" ysiw"
 map <leader>{ ysiw{
@@ -122,9 +127,12 @@ map <leader>( ysiw(
 
 "focus mode
 map <leader>f :GitGutterToggle<cr>:set nocul<cr>:set numberwidth=7<cr>:highlight LineNr ctermfg=233 ctermbg=233<cr>
+
 "revert focus mode
 map <leader>d :GitGutterToggle<cr>:set cul<cr>:set numberwidth=1<cr>:highlight LineNr ctermfg=DarkGrey ctermbg=234<cr>
 
+" Open file in macvim
+map <leader>gv :! mvim %<cr>
 
 map <leader>t :set expandtab!<cr>:set tabstop=4<cr>:set shiftwidth=4<cr>
 map <leader>s :set expandtab<cr>:set tabstop=2<cr>:set shiftwidth=2<cr>

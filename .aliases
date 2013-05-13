@@ -34,6 +34,7 @@ alias kan="killall node"
 alias g="git"
 alias gp="git pull"
 alias gl="git gl"
+alias gm="git mv"
 alias gf="git config remote.origin.push HEAD"
 alias gc='git commit'
 alias gb='git branch'

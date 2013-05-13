@@ -28,7 +28,7 @@ if tput setaf 1 &> /dev/null; then
 else
 	MAGENTA="\033[1;31m"
 	ORANGE="\033[1;33m"
-	GREEN="\033[1;32m"
+	GREEN="\033[32m"
 	PURPLE="\033[1;35m"
 	WHITE="\033[1;37m"
 	BOLD=""
@@ -55,8 +55,9 @@ function parse_node_version() {
 	GREEN=`echo -e '\033[0;32m'`
 	NORMAL=`echo -e '\033[0m'`
 
-	node --version 2> /dev/null | sed -e 's/v/$GREEN⬢$NORMAL /'
+	node --version 2> /dev/null | sed -e 's/v/ ⬢ /'
 }
-
+#[$GREEN\]\$(parse_node_version)\
 export PS1="\[${BOLD}${MAGENTA}\]\[$BLUE\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\] λ \[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
