@@ -12,10 +12,13 @@ alias ds="source ~/Projects/dotfiles/bootstrap.sh -f"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
+alias s="cd ~/Projects/sails"
 md () {
   mkdir "$1"
     cd "$1"
 }
+alias kd="find . -name '*.DS_Store' -type f -delete"
+alias xx="rm -rv *"
 alias h="history"
 alias f="exit"
 alias j="jobs"

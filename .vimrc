@@ -1,8 +1,18 @@
+"  Base options {{{
+"  Base options taken from:
+"  Steve Losh https://github.com/sjl/dotfiles/blob/master/vim/vimrc
+"  Paul Irish https://github.com/paulirish/dotfiles/blob/master/.vimrc
 "  Make vim more useful
+
+" Preamble {{{
+
+filetype off
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 set nocompatible
 
-" Enabled later, after Pathogen
-filetype off
+" }}}
 
 " Change mapleader
 let mapleader=","
@@ -12,6 +22,21 @@ set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 set undodir=~/.vim/undo
 
+" From https://github.com/sjl/dotfiles/blob/master/vim/vimrc
+  " Don't try to highlight lines longer than 800 characters.
+  set synmaxcol=800
+
+  " Time out on key codes but not mappings.
+  " Basically this makes terminal Vim work sanely.
+  set notimeout
+  set ttimeout
+  set ttimeoutlen=10
+
+  " Source
+  vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+  nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+
+" from paul irish
 " Set some junk
 set autoindent " Copy indent from last line when starting new line.
 set backspace=indent,eol,start
@@ -20,7 +45,7 @@ set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode.
-set nofoldenable    " disable folding"
+"set nofoldenable    " disable folding"
 set formatoptions=
 set formatoptions+=c " Format comments
 set formatoptions+=r " Continue comments by default
@@ -73,35 +98,35 @@ set wildmode=list:longest " Complete only until point of ambiguity.
 set winminheight=0 "Allow splits to be reduced to a single line.
 set wrapscan " Searches wrap around end of file
 
-" stuff for textwrapping"
+" Textwrapping {{{
 set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=81
-
+" }}}
 
 " Toggle show tabs and trailing spaces (,c)
 set list
 set lcs=tab:›\ ,trail:·,nbsp:_
-"set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
+"set foldmethod=indent
+set foldmethod=marker
+set foldmarker={{{,}}}
 
+" Indenting {{{
 " Stuff for indenting"
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 set shiftround
+" }}}
+" }}}
+" Key mappings stuff {{{
+" Leader mappings{{{
 
-" Remap :W to :w
-:command WQ wq
-:command Wq wq
-:command W w
-:command Q q
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""  Leader Stuff
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" select all
+map <Leader>a ggVG
 
 " Insert newline
 map <leader><Enter> O<ESC>
@@ -137,40 +162,13 @@ map <leader>gv :! mvim %<cr>
 map <leader>t :set expandtab!<cr>:set tabstop=4<cr>:set shiftwidth=4<cr>
 map <leader>s :set expandtab<cr>:set tabstop=2<cr>:set shiftwidth=2<cr>
 
-"change surrounding quote
-map <space>' cs"'
-map <space>" cs'"
+" }}}
+" Space mappings{{{
 
-" Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l)
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-H> <C-W>h
-map <C-L> <C-W>l
-
-map <esc>j <C-W>j
-map <esc>k <C-W>k
-map <esc>h <C-W>h
-map <esc>l <C-W>l
-
-"disable ex mode"
-map Q <Nop>
-
-noremap <up> <C-w> "next window
-noremap <down> <C-j>
-noremap <left> <C-h>
-noremap <right> <C-l>
-nnoremap j gj
-nnoremap k gk
-
-" make Y behave
-nnoremap Y y$
-
-
-map <space><space><space>  20j
 " Cycle through buffers in the current split
 nnoremap <Space>j :bn<CR>
 nnoremap <Space>k :bp<CR>
-" move to end or beggining of line
+
 nnoremap <Space>l :CtrlP<CR>
 
 nnoremap <Space>; ci'
@@ -178,10 +176,17 @@ nnoremap <Space>; ci'
 " quick shell
 nnoremap <Space>t :sh<cr>
 
+" move to end or beggining of line
 nnoremap <Space>a ^
-nnoremap <Space>s @a
-nnoremap <Space>d :bd<CR>
 nnoremap <Space>f $
+
+" folding
+nnoremap <Space>g za
+
+" Run 'a' register macro
+nnoremap <Space>s @a
+" destroy buffer
+nnoremap <Space>d :bd<CR>
 
 nnoremap <Space>b :bd *<C-a><CR>:CtrlP<CR>
 "delete block
@@ -193,52 +198,13 @@ nnoremap <Space>q :q<CR>
 nnoremap <space>u :GitGutterNextHunk<cr>
 nnoremap <space>i :GitGutterPrevHunk<cr>
 
-" keep visual block selected after indent
-vnoremap > >gv
-vnoremap < <gv
-
-" select all
-map <Leader>a ggVG
-
 nnoremap <Space>q :q<CR>
+"change surrounding quote
+map <space>' cs"'
+map <space>" cs'"
 
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
-vnoremap <Tab> 1>
-vnoremap <S-Tab> 1<
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
-" stops waiting for next keypress to complete leader command"
-set timeoutlen=600
-
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-
-" faster split resizing (+,-)
-if bufwinnr(1)
-  map + <C-W>+
-  map - <C-W>-
-endif
-" Set syntax highlighting options.
-set t_Co=256
-
-"colorscheme Tomorrow-Night-Eighties
-colorscheme jellybeans
-"colorscheme vividchalk
-hi CursorLine term=bold cterm=bold ctermbg=232
-highlight ColorColumn ctermbg=232
-hi IndentGuidesOdd ctermbg=232
-hi IndentGuidesEven ctermbg=234
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=234
-highlight SignColumn ctermbg=234
-highlight Normal ctermbg=233
-set modifiable
-set noswapfile
-
+" }}}
+" Plugin mappings {{{
 
 "get new version of this
 " only use if js
@@ -249,6 +215,49 @@ sunmap w
 sunmap b
 sunmap e
 
+" nerdcommenter options
+map <Space>c ,c<space>
+
+" nerdcommenter options
+map <leader>nt :NERDTree<cr>
+
+" gundo option
+nnoremap <leader>gu :GundoToggle<CR>
+
+" rainbow
+nnoremap <leader>rp :RainbowParenthesesToggleAll<CR>
+
+" }}}
+" Assorted keymappings {{{
+
+" Remap :W to :w
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+
+map <esc>j <C-W>j
+map <esc>k <C-W>k
+map <esc>h <C-W>h
+map <esc>l <C-W>l
+
+"disable ex mode"
+map Q <Nop>
+
+nnoremap j gj
+nnoremap k gk
+
+" make Y behave
+nnoremap Y y$
+
+" keep visual block selected after indent
+vnoremap > >gv
+vnoremap < <gv
+
+
+
+
+
 map <leader>js :set ft=javascript syntax=javascript<Cr>
 
 
@@ -256,7 +265,36 @@ map <leader>js :set ft=javascript syntax=javascript<Cr>
 map <Esc>s :w<CR>
 imap <Esc>s :w<CR>
 
-" nerdTree options
+
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+vnoremap <Tab> 1>
+vnoremap <S-Tab> 1<
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+" }}}
+" }}}
+" Colors {{{
+"
+" Set syntax highlighting options.
+set t_Co=256
+colorscheme jellybeans
+hi CursorLine term=bold cterm=bold ctermbg=232
+highlight ColorColumn ctermbg=232
+hi IndentGuidesOdd ctermbg=232
+hi IndentGuidesEven ctermbg=234
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=234
+highlight SignColumn ctermbg=234
+highlight Normal ctermbg=233
+set modifiable
+set noswapfile
+" }}}
+" Plugin config {{{
+" NerdTree {{{
+"
 let NERDTreeShowBookmarks=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -265,11 +303,7 @@ let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 let delimitMate_expand_cr = 1
 
-" nerdcommenter options
-map <Space>c ,c<space>
-
-" nerdcommenter options
-map <leader>nt :NERDTree<cr>
+" }}}
 
 " indent guide options
 let indent_guides_auto_colors = 0
@@ -286,13 +320,11 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 " zen coding option
 let g:user_zen_expandabbr_key='<esc><Tab>'
-
+" }}}
+" Onload {{{
 autocmd VimEnter * :IndentGuidesEnable
 autocmd VimEnter * :if argc() is 0 | :CtrlP<CR> | endif
 
-" gundo option
-nnoremap <leader>gu :GundoToggle<CR>
-nnoremap <leader>rp :RainbowParenthesesToggleAll<CR>
 au BufEnter * inoremap <expr><s-TAB> pumvisible() ? "\<C-n>" : "<s-TAB>"
 highlight NonText ctermfg=blue
 au BufNewFile,BufRead *.ejs set filetype=html
@@ -306,5 +338,5 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
-" multi cursor has comtom config so it will break everything when it is updated
- source /Users/colinwren/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/plugin/powerline.vim
+source /Users/colinwren/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/plugin/powerline.vim
+" }}}
